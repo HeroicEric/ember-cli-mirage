@@ -1,10 +1,11 @@
-import { pluralize } from './utils/inflector';
-import Pretender from 'pretender';
-import Db from './db';
-import Schema from './orm/schema';
 import Controller from './controller';
+import Db from './db';
+import Pretender from 'pretender';
+import Schema from './orm/schema';
 import Serializer from './serializer';
 import SerializerRegistry from './serializer-registry';
+import _keys from 'lodash/object/keys';
+import { pluralize } from './utils/inflector';
 
 /*
   The Mirage server, which has a db and an XHR interceptor.
@@ -102,7 +103,7 @@ export default class Server {
     this._factoryMap = factoryMap;
 
     // Create a collection for each factory
-    _.keys(factoryMap).forEach(function(type) {
+    _keys(factoryMap).forEach(function(type) {
       _this.db.createCollection(pluralize(type));
     });
   }

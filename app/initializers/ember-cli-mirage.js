@@ -1,12 +1,13 @@
 import ENV from '../config/environment';
-import baseConfig, { testConfig } from '../mirage/config';
 import Server from 'ember-cli-mirage/server';
+import _keys from 'lodash/object/keys';
+import baseConfig, { testConfig } from '../mirage/config';
 import readModules from 'ember-cli-mirage/utils/read-modules';
 
 function hasModulesOfType(modulesMap, type) {
   var modulesOfType = modulesMap[type] || {};
 
-  return _.keys(modulesOfType).length > 0;
+  return _keys(modulesOfType).length > 0;
 }
 
 export default {

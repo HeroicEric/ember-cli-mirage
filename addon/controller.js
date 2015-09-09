@@ -1,13 +1,15 @@
 import Ember from 'ember';
-import shorthandHandlers from 'ember-cli-mirage/shorthands/index';
 import Response from './response';
+import _isArray from 'lodash/lang/isArray';
+import _keys from 'lodash/object/keys';
+import shorthandHandlers from 'ember-cli-mirage/shorthands/index';
 
-var isArray = _.isArray;
-var isBlank = Ember.isBlank;
-var typeOf  = Ember.typeOf;
-var keys    = _.keys;
+const {
+  isBlank,
+  typeOf
+} = Ember;
 
-var defaultCodes = {
+const defaultCodes = {
   get: 200,
   put: 204,
   post: 201,
@@ -37,8 +39,8 @@ export default class Controller {
         code = customizedCode;
       } else {
         code = defaultCodes[verb];
-        isEmptyObject = typeOf(response) === 'object' && keys(response).length === 0;
-        if (code === 204 && response && !isEmptyObject && (isArray(response) || !isBlank(response))) {
+        isEmptyObject = typeOf(response) === 'object' && _keys(response).length === 0;
+        if (code === 204 && response && !isEmptyObject && (_isArray(response) || !isBlank(response))) {
           code = 200;
         }
       }
@@ -56,7 +58,7 @@ export default class Controller {
 
   _lookupHandlerMethod(verb, handler) {
     var type = typeof handler;
-    type = isArray(handler) ? 'array' : type;
+    type = _isArray(handler) ? 'array' : type;
 
     var handlerMethod;
 

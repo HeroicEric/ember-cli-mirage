@@ -1,5 +1,5 @@
-/* global _ */
 import Model from './orm/model';
+import _assign from 'lodash/object/assign';
 import extend from './utils/extend';
 
 class Serializer {
@@ -26,7 +26,7 @@ class Serializer {
         return memo;
       }, {});
     } else {
-      attrs = _.assign(attrs, model.attrs);
+      attrs = _assign(attrs, model.attrs);
     }
 
     return this._formatAttributeKeys(attrs);

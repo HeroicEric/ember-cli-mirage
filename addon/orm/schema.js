@@ -1,6 +1,7 @@
-import { singularize, pluralize } from '../utils/inflector';
-import Collection from './collection';
 import Association from './associations/association';
+import Collection from './collection';
+import _isArray from 'lodash/lang/isArray';
+import { singularize, pluralize } from '../utils/inflector';
 
 export default function(db) {
 
@@ -90,7 +91,7 @@ export default function(db) {
     var collection = this._collectionForType(type);
     var records = collection.find(ids);
 
-    if (_.isArray(ids)) {
+    if (_isArray(ids)) {
       if (records.length !== ids.length) {
         throw 'Couldn\'t find all ' + pluralize(type) + ' with ids: (' + ids.join(',') + ') (found ' + records.length + ' results, but was looking for ' + ids.length + ')';
       }
@@ -145,7 +146,7 @@ export default function(db) {
   this._hydrate = function(records, type) {
     var _this = this;
 
-    if (_.isArray(records)) {
+    if (_isArray(records)) {
       var models = records.map(function(record) {
         return _this._instantiateModel(type, record);
       });
