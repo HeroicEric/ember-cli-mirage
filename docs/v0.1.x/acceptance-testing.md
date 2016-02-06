@@ -12,13 +12,13 @@ Many of these tests rely on a given server state. In other words, you want to te
 Factories let you define the initial server state directly in your tests:
 
 ```js
-test('I can view the photos', function() {
+test('I can view the photos', function(assert) {
   server.createList('photo', 10);
 
   visit('/');
 
   andThen(function() {
-    equal( find('img').length, 10 );
+    assert.equal( find('img').length, 10 );
   });
 });
 ```
@@ -62,23 +62,23 @@ export default Mirage.Factory.extend({
 Now, we can write our tests, overriding the factory-generated attributes where appropriate:
 
 ```js
-test("I can view the photos", function() {
+test("I can view the photos", function(assert) {
   server.createList('photo', 10);
 
   visit('/');
 
   andThen(function() {
-    equal( find('img').length, 10 );
+    assert.equal( find('img').length, 10 );
   });
 });
 
-test("I see the photo's title on a detail route", function() {
+test("I see the photo's title on a detail route", function(assert) {
   var photo = server.create('photo', {title: 'Sunset over Hyrule'});
 
   visit('/' + photo.id);
 
   andThen(function() {
-    equal( find('h1:contains(Sunset over Hyrule').length, 1 );
+    assert.equal( find('h1:contains(Sunset over Hyrule').length, 1 );
   });
 });
 ```
