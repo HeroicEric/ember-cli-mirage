@@ -3,6 +3,7 @@ import { dasherize, pluralize, camelize } from '../utils/inflector';
 
 import _get from 'lodash/get';
 import _ from 'lodash';
+import _isEmpty from 'lodash/isEmpty';
 
 export default Serializer.extend({
 
@@ -167,6 +168,10 @@ export default Serializer.extend({
 
       hash.relationships[relationshipKey] = relationshipHash;
     });
+
+    if (_isEmpty(hash.relationships)) {
+      delete hash.relationships;
+    }
 
     return hash;
   },
